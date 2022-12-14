@@ -86,7 +86,8 @@ const FirstLatLong = () => {
   //render page
   return (
     <View style={styles.container}>
-      <Text style={styles.titleText}> First Page</Text>
+      <Text style={styles.title}>Distance calculator</Text>
+      <Text style={styles.titleText}> First coordinates</Text>
       <LatLongInput coordinates={coordinates} setCoordinates={setCoordinates} />
       <View style={styles.buttonContainer}>
         <CustomButton

@@ -11,6 +11,8 @@ import { RootState } from "../../../reduxStore/configureStore";
 import { useNavigation } from "@react-navigation/native";
 import { RootStackParamList } from "../../navigation/RootStackParamList";
 import { StackNavigationProp } from "@react-navigation/stack";
+import { calcCrow } from "../../utils/distanceBetween";
+import DisplayKm from "./DisplayKm";
 
 const FirstLatLong = () => {
   // useState for set latitude and longitude
@@ -18,7 +20,15 @@ const FirstLatLong = () => {
     lat: null,
     long: null,
   });
+
+  //useState for set button
   const [buttonDisabled, setButtonDisabled] = React.useState(true);
+
+  //useState for set km/miles
+  const [kmButton, setKmButton] = React.useState(true);
+
+  //useState for set km/miles
+  const [km, setKm] = React.useState<number>(0);
 
   //dispatch
   const dispatch = useDispatch();
@@ -34,8 +44,19 @@ const FirstLatLong = () => {
     navigation.goBack();
   };
 
+  const getDistanceBetween = async () => {
+    const distance = await calcCrow(
+      store.LatLongReducer.LatLongFirstPage.lat,
+      store.LatLongReducer.LatLongFirstPage.long,
+      store.LatLongReducer.LatLongSecondPage.lat,
+      store.LatLongReducer.LatLongSecondPage.long
+    );
+    setKm(Math.round(distance));
+    console.log(distance);
+  };
   //click on save
   const OnClickCalculate = () => {
+    getDistanceBetween();
     showToastWithGravity("Success");
   };
 
@@ -70,6 +91,8 @@ const FirstLatLong = () => {
       ? setButtonDisabled(false)
       : setButtonDisabled(true);
   }, [store, coordinates]);
+
+  // dispatch latitude and longitude
   React.useEffect(() => {
     if (
       coordinates.lat !== null &&
@@ -80,13 +103,20 @@ const FirstLatLong = () => {
       dispatch(
         SetLatLongSecondPage({ lat: coordinates.lat, long: coordinates.long })
       );
+      setKm(0);
     }
   }, [coordinates]);
+
+  // change km/miles
+  function changeButton() {
+    setKmButton(!kmButton);
+  }
 
   //render page
   return (
     <View style={styles.container}>
-      <Text style={styles.titleText}> Second Page</Text>
+      <Text style={styles.title}>Distance calculator</Text>
+      <Text style={styles.titleText}> Second coordinates</Text>
       <LatLongInput coordinates={coordinates} setCoordinates={setCoordinates} />
       <View style={styles.buttonContainer}>
         <CustomButton
@@ -104,6 +134,29 @@ const FirstLatLong = () => {
           disabled={buttonDisabled}
         />
       </View>
+      <View style={styles.buttonContainerUnit}>
+        <CustomButton
+          onPress={changeButton}
+          title={"Km"}
+          color={kmButton ? Colors.pinkv2 : Colors.grayV2}
+          opacity={1}
+          disabled={false}
+        />
+        <CustomButton
+          onPress={changeButton}
+          title={"Mile"}
+          color={!kmButton ? Colors.pinkv2 : Colors.grayV2}
+          opacity={buttonDisabled ? 0.4 : 1}
+          disabled={buttonDisabled}
+        />
+      </View>
+      {km !== 0 && (
+        <DisplayKm
+          unitKm={kmButton ? "km" : "miles"}
+          valueKm={km}
+          kmButton={kmButton}
+        />
+      )}
     </View>
   );
 };
