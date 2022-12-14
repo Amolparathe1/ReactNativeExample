@@ -2,8 +2,8 @@ import React from "react";
 import { createStackNavigator } from "@react-navigation/stack";
 
 //import all screen
-import FirstLatLong from "./src/app/FirstPage/index";
-import SecondLatLong from "./src/app/secondPage/index";
+import FirstLatLong from "../FirstPage/index";
+import SecondLatLong from "../secondPage/index";
 
 //stack navigation
 const App = createStackNavigator();

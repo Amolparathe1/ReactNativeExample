@@ -1,12 +1,12 @@
 import { NavigationContainer } from "@react-navigation/native";
-import { Dimensions, LogBox } from "react-native";
+import { LogBox } from "react-native";
 import React, { useEffect } from "react";
 import { Provider as StoreProvider } from "react-redux";
-import { AppStack } from "./route";
+import { AppStack } from "./src/app/navigation/route";
 import { configureStore } from "./src/reduxStore/configureStore";
 import { Text, TextInput } from "react-native";
+import { PersistGate } from "redux-persist/integration/react";
 
-const entireScreenWidth = Dimensions.get("window").width;
 LogBox.ignoreAllLogs();
 const App = () => {
   const { store, persistor } = configureStore();
@@ -31,10 +31,12 @@ const App = () => {
   return (
     //redux store
     <StoreProvider store={store}>
-      <NavigationContainer>
-        {/* app navigation */}
-        <AppStack />
-      </NavigationContainer>
+      <PersistGate loading={null} persistor={persistor}>
+        <NavigationContainer>
+          {/* app navigation */}
+          <AppStack />
+        </NavigationContainer>
+      </PersistGate>
     </StoreProvider>
   );
 };

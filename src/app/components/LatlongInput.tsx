@@ -2,7 +2,7 @@ import * as React from "react";
 import { View, Text, StyleSheet } from "react-native";
 import { Colors } from "../utils/colors";
 import Input from "./TextInput";
-import TextStyle from "./styles";
+import Styles from "./styles";
 interface Props {
   // any props that come into the component
   setCoordinates: React.Dispatch<React.SetStateAction<any>>;
@@ -11,7 +11,7 @@ interface Props {
 function LatLongInput({ coordinates, setCoordinates }: Props) {
   // useState for set latitude and longitude
   return (
-    <View style={TextStyle.container}>
+    <View style={Styles.container}>
       {/* get latitude for user */}
       <Input
         label="Latitude"

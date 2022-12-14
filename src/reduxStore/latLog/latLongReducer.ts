@@ -11,11 +11,11 @@ const LatLongReducer = (state = INITIAL_STATE, action: any) => {
   switch (action.type) {
     case SET_LAT_LONG_FIRST_PAGE:
       return Object.assign({}, state, {
-        LatLongFirstPage: action.list,
+        LatLongFirstPage: action.value,
       });
     case SET_LAT_LONG_SECOND_PAGE:
       return Object.assign({}, state, {
-        LatLongSecondPage: action.list,
+        LatLongSecondPage: action.value,
       });
     default:
       return state;

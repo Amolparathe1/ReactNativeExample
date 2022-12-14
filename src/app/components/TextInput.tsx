@@ -1,6 +1,6 @@
 import React from "react";
 import { TextInput, View, Text, KeyboardTypeOptions } from "react-native";
-import TextStyle from "./styles";
+import Styles from "./styles";
 interface Props {
   // any props that come into the component
   label: string;
@@ -30,15 +30,15 @@ const Input = ({
     }));
   };
   return (
-    <View style={TextStyle.containerStyle}>
+    <View style={Styles.containerStyle}>
       {/* user label */}
-      <Text style={TextStyle.labelStyle}>{label}</Text>
+      <Text style={Styles.labelStyle}>{label}</Text>
       {/* user input */}
       <TextInput
         secureTextEntry={secureTextEntry}
         placeholder={placeholder}
         autoCorrect={false}
-        style={TextStyle.inputStyle}
+        style={Styles.inputStyle}
         value={value}
         key={name}
         onChangeText={(val) => onChangeHandler(val, onChangeText)}
