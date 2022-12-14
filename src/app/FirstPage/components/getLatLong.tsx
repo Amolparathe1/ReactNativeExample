@@ -25,6 +25,7 @@ const FirstLatLong = () => {
     lat: null,
     long: null,
   });
+  const [buttonDisabled, setButtonDisabled] = React.useState(true);
   //dispatch
   const dispatch = useDispatch();
   //navigation
@@ -56,12 +57,20 @@ const FirstLatLong = () => {
   };
   // useEffect for button actions
   React.useEffect(() => {
-    console.log(store);
-  }, [store]);
+    coordinates.lat !== null &&
+    coordinates.long !== null &&
+    store.LatLongReducer.LatLongFirstPage.lat === coordinates.lat &&
+    store.LatLongReducer.LatLongFirstPage.long === coordinates.long
+      ? setButtonDisabled(false)
+      : setButtonDisabled(true);
+  }, [store, coordinates]);
   //set value from reduxStore
   React.useEffect(() => {
-    console.log(store);
-  }, [store]);
+    setCoordinates({
+      lat: store.LatLongReducer.LatLongFirstPage.lat,
+      long: store.LatLongReducer.LatLongFirstPage.long,
+    });
+  }, []);
 
   //render page
   return (
@@ -79,8 +88,8 @@ const FirstLatLong = () => {
           onPress={OnClickNext}
           title={"Next"}
           color={Colors.green}
-          opacity={1}
-          disabled={false}
+          opacity={buttonDisabled ? 0.4 : 1}
+          disabled={buttonDisabled}
         />
       </View>
     </View>
