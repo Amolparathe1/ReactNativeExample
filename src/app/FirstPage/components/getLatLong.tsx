@@ -9,7 +9,7 @@ import {
 } from "react-native";
 import { Colors } from "../../utils/colors";
 import LatLongInput from "../../components/LatlongInput";
-import styles from "./styles";
+import styles from "../../global/styles";
 import CustomButton from "../../components/button";
 import { SetLatLongFirstPage } from "../../../reduxStore/latLog/latlongAction";
 import { useDispatch } from "react-redux";
@@ -28,42 +28,60 @@ const FirstLatLong = () => {
   const [buttonDisabled, setButtonDisabled] = React.useState(true);
   //dispatch
   const dispatch = useDispatch();
+
   //navigation
   const navigation = useNavigation<StackNavigationProp<RootStackParamList>>();
+
   // reduxStore
   const store = useTypedSelector((state: RootState) => state);
+
   //click on Next
   const OnClickNext = () => {
     navigation.navigate("SecondLatLong");
   };
+
   //click on save
   const OnClickSave = () => {
-    dispatch(
-      SetLatLongFirstPage({ lat: coordinates.lat, long: coordinates.long })
-    );
-    if (Platform.OS === "android") {
-      showToastWithGravity();
+    if (
+      coordinates.lat !== null &&
+      coordinates.long !== null &&
+      coordinates.lat !== "" &&
+      coordinates.long !== ""
+    ) {
+      dispatch(
+        SetLatLongFirstPage({ lat: coordinates.lat, long: coordinates.long })
+      );
+      showToastWithGravity("coordinates Save Success");
     } else {
-      Alert.alert("coordinates Save Success");
+      showToastWithGravity("coordinates not valid");
     }
   };
+
   // android Tost
-  const showToastWithGravity = () => {
-    ToastAndroid.showWithGravity(
-      "coordinates Save Success",
-      ToastAndroid.SHORT,
-      ToastAndroid.CENTER
-    );
+  const showToastWithGravity = (msg: string) => {
+    if (Platform.OS === "android") {
+      ToastAndroid.showWithGravity(
+        msg,
+        ToastAndroid.SHORT,
+        ToastAndroid.CENTER
+      );
+    } else {
+      Alert.alert(msg);
+    }
   };
+
   // useEffect for button actions
   React.useEffect(() => {
     coordinates.lat !== null &&
     coordinates.long !== null &&
+    coordinates.lat !== "" &&
+    coordinates.long !== "" &&
     store.LatLongReducer.LatLongFirstPage.lat === coordinates.lat &&
     store.LatLongReducer.LatLongFirstPage.long === coordinates.long
       ? setButtonDisabled(false)
       : setButtonDisabled(true);
   }, [store, coordinates]);
+
   //set value from reduxStore
   React.useEffect(() => {
     setCoordinates({
