@@ -1,12 +1,5 @@
 import * as React from "react";
-import {
-  View,
-  Text,
-  StyleSheet,
-  Alert,
-  ToastAndroid,
-  Platform,
-} from "react-native";
+import { View, Text, Alert, ToastAndroid, Platform } from "react-native";
 import { Colors } from "../../utils/colors";
 import LatLongInput from "../../components/LatlongInput";
 import styles from "../../global/styles";
@@ -93,8 +86,9 @@ const FirstLatLong = () => {
   //render page
   return (
     <View style={styles.container}>
+      <Text style={styles.titleText}> First Page</Text>
       <LatLongInput coordinates={coordinates} setCoordinates={setCoordinates} />
-      <View style={{ flexDirection: "row" }}>
+      <View style={styles.buttonContainer}>
         <CustomButton
           onPress={OnClickSave}
           title={"Save"}

@@ -2,7 +2,7 @@ export const Colors = {
   black: "black",
   white: "white",
   gray: "gray",
-  pink: "#9B308C",
+  pinkv2: "#9B308C",
   blackV2: "#202022",
   green: "#1D957B",
   greenV2: "#40DAB4",

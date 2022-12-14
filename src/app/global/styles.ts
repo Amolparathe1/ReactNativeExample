@@ -7,5 +7,13 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
   },
+  buttonContainer: { flexDirection: "row" },
+  titleText: {
+    fontSize: 24,
+    color: Colors.gray,
+    fontWeight: "bold",
+    alignSelf: "center",
+    textTransform: "uppercase",
+  },
 });
 export default styles;
