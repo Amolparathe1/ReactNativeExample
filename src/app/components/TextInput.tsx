@@ -23,11 +23,14 @@ const Input = ({
   keyboardType,
   name,
 }: Props) => {
+  // const onChangeHandler = (value: any, setState: any) => {
+  //   setState((prev: any) => ({
+  //     ...prev,
+  //     [name]: value,
+  //   }));
+  // };
   const onChangeHandler = (value: any, setState: any) => {
-    setState((prev: any) => ({
-      ...prev,
-      [name]: value,
-    }));
+    setState(value);
   };
   return (
     <View style={Styles.containerStyle}>
