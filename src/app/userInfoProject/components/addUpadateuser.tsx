@@ -43,7 +43,7 @@ const AddUpdateUser = (props: any) => {
       setBirthDate("");
       setMarried(false);
     }
-  }, [isUpdateUser]);
+  }, [props]);
   const updateUserOnclick = () => {
     const idToUpdate = updateUser.id;
     const index = userList.findIndex((obj: any) => obj.id === idToUpdate);
